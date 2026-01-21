@@ -1,3 +1,5 @@
+import tasaDeCambio.Historial;
+
 import java.util.Scanner;
 
 
@@ -27,20 +29,49 @@ import java.util.Scanner;
             System.out.println("╚════════════════════════════════════════════════════════╝\n");
 
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Ingresa la moneda origen (ej. USD): ");
-            String from = scanner.nextLine().toUpperCase();
-            System.out.println("Ingresa la moneda destino (ej. EUR): ");
-            String to = scanner.nextLine().toUpperCase();
-            System.out.println("Ingresa la cantidad(sin puntos ni comas): ");
-            double amount = scanner.nextDouble();
+            boolean continuar = true;
+            while (continuar) {
+                System.out.println("=========================================" + "\n" +
+                        "Ingresa la moneda origen (ej. USD): ");
+                String from = scanner.nextLine().toUpperCase();
+                System.out.println("Ingresa la moneda destino (ej. EUR): ");
+                String to = scanner.nextLine().toUpperCase();
+                System.out.println("Ingresa la cantidad (sin puntos ni comas): ");
+                double amount = scanner.nextDouble();
+                scanner.nextLine();//Siguiente linea
 
-            try {
-                double rate = ConvierteMoneda.obtenerTasa(from, to);
-                double result = amount * rate;
-                System.out.println(amount + " " + from + " = " + result + " " + to);
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+
+                try {
+                    double rate = ConvierteMoneda.obtenerTasa(from, to);
+                    double result = amount * rate;
+                    Historial.agregarRegistro(amount, from, to, result);
+                    System.out.println(amount + " " + from + " = " + result + " " + to + "\n" +
+                    "=========================================");
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+
+                boolean respuestaValida = false;
+                while (!respuestaValida) {
+
+                    System.out.println("¿Quieres hacer otra conversión? (¿si o no?): " +
+                            "\n" + "¿O quieres ver el historial?(escribe 2)");
+                    String respuesta = scanner.nextLine().toLowerCase();
+                    if (respuesta.equals("si")) {
+                        respuestaValida = true;
+                    } else if (respuesta.equals("2")) {
+                        Historial.mostrarHistorial();
+                        respuestaValida = true;
+                    } else if (respuesta.equals("no")) {
+                        continuar = false;
+                        respuestaValida = true;
+                    } else {
+                        System.out.println("Opción inválida. Ingresa si, no o el numero 2.");
+                    }
+                }
             }
-        }
-    }
 
+            scanner.close();
+        }
+
+    }

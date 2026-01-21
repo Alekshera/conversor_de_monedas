@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class ConvierteMoneda {
     // Espacio para la API key (reemplaza con tu clave real)
-    private static final String API_KEY = "e2912f7f4b63bfc597d0c020";
+    private static final String API_KEY = "Tu-api-key";
 
     // URI base de la API
     private static final String BASE_URI = "https://v6.exchangerate-api.com/v6/";
