@@ -1,0 +1,1 @@
+Este genial conversor de monedas puede guardar el historial de busquedas realizadas asi como la hora tambien, se espera en el futuro agregar nuevas funcionalidades y una interfaz de java para el usuario y conexion con la base de datos.
